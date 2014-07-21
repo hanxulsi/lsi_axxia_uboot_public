@@ -25,7 +25,7 @@
 
 #define CONFIG_AXXIA_ARM
 
-/* #define NCR_TRACER */
+/*#define NCR_TRACER*/
 
 #ifndef __ASSEMBLY__
 #include <linux/types.h>
@@ -408,8 +408,8 @@ printf( "# " format "\n", ##args ); \
 } \
 } while( 0 );
 #else
-#define NCR_TRACE( format, args... )
-#define NCP_COMMENT( format, args... )
+#define NCR_TRACE( format, args... ) printf( "# " format "\n", ##args )
+#define NCP_COMMENT( format, args... ) printf( "# " format "\n", ##args )
 #endif
 #endif
 

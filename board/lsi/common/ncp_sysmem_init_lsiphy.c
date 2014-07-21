@@ -82,7 +82,8 @@ typedef ncp_st_t
         ncp_sm_phy_training_mode_t  mode,
         ncp_sm_parms_t             *parms);
 
-#ifndef UBOOT
+/*#ifndef UBOOT*/
+#if 1
 #define NCP_SM_PHY_REG_DUMP
 #endif
 #ifdef  NCP_SM_PHY_REG_DUMP 
@@ -2275,7 +2276,7 @@ NCP_RETURN_LABEL
 
 
 
-/* #define SM_BYTELANE_TEST_DEBUG */
+#define SM_BYTELANE_TEST_DEBUG
 
 /*
  *------------------------------------------------------------------------------
@@ -2656,7 +2657,7 @@ sm_ecc_bytelane_test(
     if (-1 == rc)
         rc = in_be32(NCA + 0xe4);
 
-    NCR_TRACE( "ncpRead    0.%lu.5.0x%010x 32\n", node, (address >> 2) );
+    NCR_TRACE( "ncpRead    0.%u.5.0x%010x 32\n", node, (unsigned int)(address >> 2) );
     p32 = (ncp_uint32_t *)(NCA + 0x1000); 
 #else
     rc = ncp_block_read32(dev, NCP_REGION_ID(node, 5), (address >> 2), 
@@ -2774,7 +2775,7 @@ sm_bytelane_test_elm(
 
 #ifdef SM_BYTELANE_TEST_DEBUG
 #ifdef UBOOT 
-    ncp_uint32_t  *p32 = (NCA + 0x1000); 
+    ncp_uint32_t  *p32 = (ncp_uint32_t*)(NCA + 0x1000); 
     unsigned uppAddr;
     unsigned lowAddr;
 #else 
@@ -2934,7 +2935,7 @@ sm_bytelane_test_elm(
       printf("%d : ncr_write() failed!\n", __LINE__);
       return -1;
     }
-    p32 = (NCA + 0x1000); 
+    p32 = (ncp_uint32_t*)(NCA + 0x1000); 
 #else 
     NCP_CALL(ncp_block_read8(dev, NCP_REGION_NCA_NIC_SYSMEM, address, 
                                 rbuf, blockSize, 0));
@@ -4000,7 +4001,7 @@ ncp_sysmem_init_lsiphy(
      */
 
 
-    /*#define  NCP_SM_DISP_TRAINING_STEPS*/
+    #define  NCP_SM_DISP_TRAINING_STEPS
 
     for (rank = 0; rank < NCP_SM_MAX_RANKS; rank++)
     {
@@ -4155,7 +4156,8 @@ NCP_RETURN_LABEL
     }
 
 #ifdef NCP_SM_PHY_REG_DUMP
-  if ( (NCP_ST_SUCCESS != returnStatus) || ncp_sm_phy_reg_dump )
+/*  if ( (NCP_ST_SUCCESS != returnStatus) || ncp_sm_phy_reg_dump )*/
+  if(1)
   {
     ncp_sm_lsiphy_reg_dump(dev, smId, parms->version);
   }

@@ -759,6 +759,7 @@ spl_board_init(void)
 	     " / __ |\\ \\ /\\ \\ // / _ `/ / /_/ /___/ _  / _ \\/ _ \\/ __/ _\\ \\/ ___/ /__\n"
 	     "/_/ |_/_\\_\\/_\\_\\/_/\\_,_/  \\____/   /____/\\___/\\___/\\__/ /___/_/  /____/\n");
 	printf("\nLSI Version: %s\n", get_lsi_version());
+        printf("\nBUILD Date Time: %s %s\n", __DATE__, __TIME__);
 
 #ifdef CONFIG_HW_WATCHDOG
 	rc = start_watchdog();

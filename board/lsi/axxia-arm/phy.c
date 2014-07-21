@@ -429,6 +429,14 @@ phy_identify( int phy )
 			return 0;
 		}
 		break;
+	case 0x47:
+		if ((0x19 == phy_id_low.bits.id) &&
+		    (0x3e == phy_id_low.bits.model)) {
+			phy_ops[phy] = &bcm5222_phy_ops;
+			DEBUG_PRINT( "Setting up BCM5222 Operations.\n" );
+			return 0;
+		}
+		break;
 	default:
 		break;
 	}

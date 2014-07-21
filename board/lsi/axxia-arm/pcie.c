@@ -6,7 +6,7 @@
 #include <config.h>
 
 #undef DEBUG_PCIE
-//#define DEBUG_PCIE
+#define DEBUG_PCIE
 
 #ifdef CONFIG_PCI
 
@@ -90,7 +90,7 @@ static int pcie_read_config(struct pci_controller *hose, unsigned int devfn,
 	if (address == NULL)
 		return 0;
 #ifdef DEBUG_PCIE
-	printf("pcie_read_config:  cfg space base_address  = 0x%x, cfg_data = 0x%x\n", address, hose->cfg_data);
+	printf("pcie_read_config:  cfg space base_address  = 0x%x, cfg_data = 0x%x\n", (unsigned int)address, (unsigned int)hose->cfg_data);
 #endif
 
 	if (PCI_BUS(devfn) == 0) {
@@ -133,7 +133,7 @@ static int pcie_read_config(struct pci_controller *hose, unsigned int devfn,
 			break;
 	}
 #ifdef DEBUG_PCIE
-		printf("pcie_read_config:  %s: cfg_data=%08x offset=%08x, bus_addr = 0x%08x, val = 0x%08x\n", __func__, hose->cfg_data, offset, bus_addr, *val);
+		printf("pcie_read_config:  %s: cfg_data=%08x offset=%08x, bus_addr = 0x%08x, val = 0x%08x\n", __func__, (unsigned int)(hose->cfg_data), (unsigned int)offset, (unsigned int)bus_addr, (unsigned int)(*val));
 #endif
 
 
@@ -163,7 +163,7 @@ static int pcie_write_config(struct pci_controller *hose, unsigned int devfn,
 	if (address == NULL)
 		return 0;
 #ifdef DEBUG_PCIE
-	printf("pcie_write_config:  cfg space base_address  = 0x%x, cfg_data = 0x%x\n", address, hose->cfg_data);
+	printf("pcie_write_config:  cfg space base_address  = 0x%x, cfg_data = 0x%x\n", (unsigned int)address, (unsigned int)hose->cfg_data);
 #endif
 
     /*
@@ -323,7 +323,7 @@ int pci_axxia_init (struct pci_controller *hose, int port)
 
 	hose->cfg_addr = mbase;
 #ifdef DEBUG_PCIE
-	printf("port = %d, hose = 0x%x, hose->cfg_addr = 0x%x\n", port, hose,mbase);
+	printf("port = %d, hose = 0x%x, hose->cfg_addr = 0x%x\n", port, (unsigned int)hose,(unsigned int)mbase);
 #endif
 	tpage_base = mbase + 0x1050;
 	pci_addr = bus_start;
