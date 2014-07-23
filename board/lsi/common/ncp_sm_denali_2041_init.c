@@ -277,8 +277,8 @@ ncp_sm_denali_2041_init(
         SV(ncp_denali_DENALI_CTL_40_t, tfaw, 20);
     printf("tfaw=%d\n", 20);
 #else
-        SV(ncp_denali_DENALI_CTL_40_t, tfaw, 32);
-    printf("tfaw=%d\n", 32);
+        SV(ncp_denali_DENALI_CTL_40_t, tfaw, 24);
+    printf("tfaw=%d\n", 24);
 #endif
     }
     SV(ncp_denali_DENALI_CTL_40_t, tdfi_phy_rdlat, parms->phy_rdlat);
@@ -355,6 +355,7 @@ ncp_sm_denali_2041_init(
      *   TREF[29:16] reg temp 7800ns hi temp 3900ns
      */
     value = 0;
+#if 0
 #ifdef SM_PLL_533_MHZ
     if (parms->high_temp_dram) {
         SV(ncp_denali_DENALI_CTL_70_t, tref, 2080);   /* 3900ns at 533MHz */
@@ -368,6 +369,9 @@ ncp_sm_denali_2041_init(
         SV(ncp_denali_DENALI_CTL_70_t, tref, 6240);   /* 7800ns at 800MHz */
     }
 #endif
+#endif
+/*Han 4 TCU*/
+    SV(ncp_denali_DENALI_CTL_70_t, tref, 0x0c30);   /* 3900ns at 800MHz */
     ncr_write32(ctlReg,  0x0118, value);
 
     /* DENALI_CTL_84 */
@@ -523,6 +527,7 @@ ncp_sm_denali_2041_init(
     /* DENALI_CTL_229 */
     /* FREQDEP */
     value = 0;
+#if 0
 #ifdef SM_PLL_533_MHZ
     if (parms->high_temp_dram) {
         SV(ncp_denali_DENALI_CTL_229_t, tras_max, 0x4920); /* 35100ns @ 533MHz */
@@ -536,6 +541,9 @@ ncp_sm_denali_2041_init(
         SV(ncp_denali_DENALI_CTL_229_t, tras_max, 0xdb60); /* 70200ns @ 800MHz */
     }
 #endif
+#endif
+    SV(ncp_denali_DENALI_CTL_229_t, tras_max, 0x6db0);
+
     ncr_write32(ctlReg,  0x0394, value);
 
     /* DENALI_CTL_230 */
