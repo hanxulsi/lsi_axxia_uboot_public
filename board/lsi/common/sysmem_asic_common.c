@@ -84,7 +84,7 @@ static unsigned long sm_nodes [ ] = {
  */
 ncp_uint8_t tRFC_vals_533[5] = { 0, 0x30, 0x3b, 0x56, 0xa0 } ;
 ncp_uint8_t tRFC_vals_667[5] = { 0, 0x3c, 0x4a, 0x6b, 0xc8 } ;
-ncp_uint8_t tRFC_vals_800[5] = { 0, 0x48, 0x58, 0x80, 0xd0 } ;
+ncp_uint8_t tRFC_vals_800[5] = { 0, 0x48, 0x58, 0x80, 0xf0 } ;
 
 
 #ifdef CONFIG_AXXIA_25xx
