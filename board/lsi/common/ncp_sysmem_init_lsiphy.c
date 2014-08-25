@@ -82,8 +82,7 @@ typedef ncp_st_t
         ncp_sm_phy_training_mode_t  mode,
         ncp_sm_parms_t             *parms);
 
-/*#ifndef UBOOT*/
-#if 1
+#ifndef UBOOT
 #define NCP_SM_PHY_REG_DUMP
 #endif
 #ifdef  NCP_SM_PHY_REG_DUMP 
@@ -2276,7 +2275,7 @@ NCP_RETURN_LABEL
 
 
 
-#define SM_BYTELANE_TEST_DEBUG
+/* #define SM_BYTELANE_TEST_DEBUG */
 
 /*
  *------------------------------------------------------------------------------
@@ -4001,7 +4000,7 @@ ncp_sysmem_init_lsiphy(
      */
 
 
-    #define  NCP_SM_DISP_TRAINING_STEPS
+    /*#define  NCP_SM_DISP_TRAINING_STEPS*/
 
     for (rank = 0; rank < NCP_SM_MAX_RANKS; rank++)
     {
@@ -4156,8 +4155,7 @@ NCP_RETURN_LABEL
     }
 
 #ifdef NCP_SM_PHY_REG_DUMP
-/*  if ( (NCP_ST_SUCCESS != returnStatus) || ncp_sm_phy_reg_dump )*/
-  if(1)
+  if ( (NCP_ST_SUCCESS != returnStatus) || ncp_sm_phy_reg_dump )
   {
     ncp_sm_lsiphy_reg_dump(dev, smId, parms->version);
   }

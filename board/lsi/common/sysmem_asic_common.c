@@ -359,7 +359,7 @@ sysmem_init(void)
 	}
 #endif
 
-#define DISPLAY_PARAMETERS 
+/* #define DISPLAY_PARAMETERS */
 #ifdef DISPLAY_PARAMETERS
     {
         unsigned long *p;

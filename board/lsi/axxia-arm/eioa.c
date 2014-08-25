@@ -27,9 +27,9 @@
     rte/api/nca/include/ncp_dev_config_regs.h.
 */
 
-#define DEBUG
-#define NCR_DEBUG
-#define LSI_LOGIO
+/* #define DEBUG */
+/* #define NCR_DEBUG */
+/*#define LSI_LOGIO*/
 #include <config.h>
 #include <common.h>
 #include <malloc.h>

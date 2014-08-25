@@ -267,18 +267,14 @@ ncp_sm_denali_2041_init(
          (NCP_SM_SDRAM_WIDTH_16BITS  == parms->sdram_device_width)) {
 #ifdef SM_PLL_533_MHZ
         SV(ncp_denali_DENALI_CTL_40_t, tfaw, 27);
-    printf("tfaw=%d\n", 27);
 #else
         SV(ncp_denali_DENALI_CTL_40_t, tfaw, 32);
-    printf("tfaw=%d\n", 32);
 #endif
     } else {
 #ifdef SM_PLL_533_MHZ
         SV(ncp_denali_DENALI_CTL_40_t, tfaw, 20);
-    printf("tfaw=%d\n", 20);
 #else
         SV(ncp_denali_DENALI_CTL_40_t, tfaw, 24);
-    printf("tfaw=%d\n", 24);
 #endif
     }
     SV(ncp_denali_DENALI_CTL_40_t, tdfi_phy_rdlat, parms->phy_rdlat);

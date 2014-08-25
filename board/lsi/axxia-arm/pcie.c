@@ -6,7 +6,7 @@
 #include <config.h>
 
 #undef DEBUG_PCIE
-#define DEBUG_PCIE
+//#define DEBUG_PCIE
 
 #ifdef CONFIG_PCI
 
