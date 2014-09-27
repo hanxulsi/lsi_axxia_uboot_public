@@ -372,6 +372,70 @@ phy_ops_t vsc8634_phy_ops = {
 
 /*
   ======================================================================
+  TLK110
+*/
+
+#define TLK110_PHY_ID_HIGH_ID   0x2000
+#define TLK110_PHY_ID_LOW_ID    0x28
+#define TLK110_PHY_ID_LOW_MODEL 0x21
+
+#define TLK110_PHY_AUXILIARY_CONTROL_STATUS 0x1c
+
+typedef union {
+	unsigned short raw;
+
+	struct {
+#ifdef __BIG_ENDIAN
+		unsigned short 		          :13;
+		unsigned short duplex_status      : 1;
+		unsigned short speed_status       : 1;
+		unsigned short link_status        : 1;
+#else  /* __BIG_ENDIAN */
+		unsigned short link_status        : 1;
+		unsigned short speed_status       : 1;
+		unsigned short duplex_status      : 1;
+		unsigned short 		          :13;
+
+#endif /* __BIG_ENDIAN */
+  } bits;
+} tlk110_phy_auxiliary_control_status_t;
+
+/*
+  ----------------------------------------------------------------------
+  vsc8634_phy_duplex
+*/
+
+static int
+tlk110_phy_duplex( int phy )
+{
+	tlk110_phy_auxiliary_control_status_t aux;
+
+	aux.raw = mdio_read( phy, TLK110_PHY_AUXILIARY_CONTROL_STATUS );
+
+	return aux.bits.duplex_status;
+}
+
+/*
+  ----------------------------------------------------------------------
+  vsc8634_phy_speed
+*/
+
+static int
+tlk110_phy_speed( int phy )
+{
+	tlk110_phy_auxiliary_control_status_t aux;
+
+	aux.raw = mdio_read( phy, TLK110_PHY_AUXILIARY_CONTROL_STATUS );
+
+	return aux.bits.speed_status;
+}
+
+phy_ops_t tlk110_phy_ops = {
+	.duplex = tlk110_phy_duplex,
+	.speed = tlk110_phy_speed
+};
+/*
+  ======================================================================
   Local Functions
   ======================================================================
 */
@@ -388,10 +452,10 @@ phy_identify( int phy )
 	phy_id_low_t phy_id_low;
 
 	phy_id_high.raw = mdio_read( phy, PHY_ID_HIGH );
-	DEBUG_PRINT( "phy_id_high.raw=0x%x phy_id_high.bits.id=0x%x\n",
+	printf( "phy_id_high.raw=0x%x phy_id_high.bits.id=0x%x\n",
 		     phy_id_high.raw, phy_id_high.bits.id );
 	phy_id_low.raw = mdio_read( phy, PHY_ID_LOW );
-	DEBUG_PRINT( "phy_id_low.raw=0x%x phy_id_low.bits.id=0x%x "
+	printf( "phy_id_low.raw=0x%x phy_id_low.bits.id=0x%x "
 		     "phy_id_low.bits.model=0x%x "
 		     "phy_id_low.bits.revision=0x%x\n",
 		     phy_id_low.raw, phy_id_low.bits.id, phy_id_low.bits.model,
@@ -434,6 +498,14 @@ phy_identify( int phy )
 		    (0x3e == phy_id_low.bits.model)) {
 			phy_ops[phy] = &bcm5222_phy_ops;
 			DEBUG_PRINT( "Setting up BCM5222 Operations.\n" );
+			return 0;
+		}
+		break;
+        case TLK110_PHY_ID_HIGH_ID:
+		if ((TLK110_PHY_ID_LOW_ID == phy_id_low.bits.id) &&
+		    (TLK110_PHY_ID_LOW_MODEL == phy_id_low.bits.model)) {
+			phy_ops[phy] = &tlk110_phy_ops;
+			printf( "Setting up TLK110 Operations.\n" );
 			return 0;
 		}
 		break;

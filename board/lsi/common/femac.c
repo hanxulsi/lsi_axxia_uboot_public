@@ -2494,7 +2494,7 @@ dump_packet_(header, data, length);
 */
 
 #undef DEBUG
-/* #define DEBUG */
+#define DEBUG
 #ifdef DEBUG
 #define DEBUG_PRINT( format, args... ) do { \
 printf( "app3_nic:%s:%d - DEBUG - ", __FUNCTION__, __LINE__ ); \
@@ -4083,10 +4083,11 @@ phy_enable_(int phy)
 {
 	char *macspeed = (char *)0;
 	int link_retries;
-	unsigned long value;
 
 	phy_address_ = phy;
 
+#if 0
+	unsigned long value;
 	/* Access Shadow reg 0x1d */
 	value = mdio_read( phy_address_, PHY_BCM_TEST_REG );
 	value |= 0x80;
@@ -4098,7 +4099,9 @@ phy_enable_(int phy)
 	/* Back to regular register access. */
 	value &= ~0x80;
 	mdio_write( phy_address_, PHY_BCM_TEST_REG, value);
-
+#else
+	DEBUG_PRINT( "Skipping old BCM code\n");
+#endif
 	macspeed = getenv( "macspeed" );
 
 	/*
@@ -4468,8 +4471,8 @@ lsi_femac_eth_init(struct eth_device *dev, bd_t *board_info)
 	queue_decrement_( & rx_head_, rx_number_of_descriptors );
 	rx_head_.bits.generation_bit =
 		( 0 == rx_head_.bits.generation_bit ) ? 1 : 0;
-	DEBUG_PRINT( "rx_head_.raw=0x%p rx_tail_->raw=0x%p "
-		     "rx_tail_copy_.raw=0x%p\n",
+	DEBUG_PRINT( "rx_head_.raw=0x%lx rx_tail_->raw=0x%lx "
+		     "rx_tail_copy_.raw=0x%lx\n",
 		     rx_head_.raw, rx_tail_->raw, rx_tail_copy_.raw );
 	writel( rx_head_.raw, APP3XXNIC_DMA_RX_HEAD_POINTER );
 
