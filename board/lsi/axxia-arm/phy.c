@@ -452,10 +452,10 @@ phy_identify( int phy )
 	phy_id_low_t phy_id_low;
 
 	phy_id_high.raw = mdio_read( phy, PHY_ID_HIGH );
-	printf( "phy_id_high.raw=0x%x phy_id_high.bits.id=0x%x\n",
+	DEBUG_PRINT( "phy_id_high.raw=0x%x phy_id_high.bits.id=0x%x\n",
 		     phy_id_high.raw, phy_id_high.bits.id );
 	phy_id_low.raw = mdio_read( phy, PHY_ID_LOW );
-	printf( "phy_id_low.raw=0x%x phy_id_low.bits.id=0x%x "
+	DEBUG_PRINT( "phy_id_low.raw=0x%x phy_id_low.bits.id=0x%x "
 		     "phy_id_low.bits.model=0x%x "
 		     "phy_id_low.bits.revision=0x%x\n",
 		     phy_id_low.raw, phy_id_low.bits.id, phy_id_low.bits.model,
@@ -505,7 +505,7 @@ phy_identify( int phy )
 		if ((TLK110_PHY_ID_LOW_ID == phy_id_low.bits.id) &&
 		    (TLK110_PHY_ID_LOW_MODEL == phy_id_low.bits.model)) {
 			phy_ops[phy] = &tlk110_phy_ops;
-			printf( "Setting up TLK110 Operations.\n" );
+			DEBUG_PRINT( "Setting up TLK110 Operations.\n" );
 			return 0;
 		}
 		break;

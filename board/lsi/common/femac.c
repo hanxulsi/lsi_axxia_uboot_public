@@ -97,7 +97,7 @@ dump_packet_( direction, data, length );
 */
 
 #undef DEBUG
-#define DEBUG
+/* #define DEBUG */
 #ifdef DEBUG
 #define DEBUG_PRINT( format, args... ) do { \
 printf( "app3_nic:%s:%d - DEBUG - ", __FUNCTION__, __LINE__ ); \
@@ -2494,7 +2494,7 @@ dump_packet_(header, data, length);
 */
 
 #undef DEBUG
-#define DEBUG
+/* #define DEBUG */
 #ifdef DEBUG
 #define DEBUG_PRINT( format, args... ) do { \
 printf( "app3_nic:%s:%d - DEBUG - ", __FUNCTION__, __LINE__ ); \
@@ -4100,7 +4100,7 @@ phy_enable_(int phy)
 	value &= ~0x80;
 	mdio_write( phy_address_, PHY_BCM_TEST_REG, value);
 #else
-	DEBUG_PRINT( "Skipping old BCM code\n");
+	printf( "Skipping old BCM code\n");
 #endif
 	macspeed = getenv( "macspeed" );
 
