@@ -27,6 +27,7 @@ static unsigned int current_speed = 0;
 static unsigned int current_bus = 0;
 static unsigned int initialized = 0;
 
+
 #define MST_STATUS_RFL (1<<13) /* RX FIFO serivce */
 #define MST_STATUS_TFL (1<<12) /* TX FIFO service */
 #define MST_STATUS_SNS (1<<11) /* Manual mode done */
@@ -485,7 +486,6 @@ i2c_set_bus_num(unsigned int bus)
 
 	current_bus = bus;
 	i2c_init(CONFIG_SYS_I2C_SPEED, CONFIG_SYS_I2C_SLAVE);
-
 	return 0;
 }
 
