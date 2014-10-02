@@ -65,7 +65,7 @@ static phy_ops_t * phy_ops [ NUM_PHYS ] = { ( phy_ops_t * ) 0 };
 
 #define MICREL_PHY_ID_HIGH_ID   0x22
 #define MICREL_PHY_ID_LOW_ID    0x05
-#ifndef CONFIG_AXXIA_ARM
+#ifdef CONFIG_AXXIA_ARM
 #define MICREL_PHY_ID_LOW_MODEL 0x21
 #else
 #define MICREL_PHY_ID_LOW_MODEL 0x15
@@ -402,7 +402,7 @@ typedef union {
 
 /*
   ----------------------------------------------------------------------
-  vsc8634_phy_duplex
+  tlk110_phy_duplex
 */
 
 static int
@@ -417,7 +417,7 @@ tlk110_phy_duplex( int phy )
 
 /*
   ----------------------------------------------------------------------
-  vsc8634_phy_speed
+  tlk_phy_speed
 */
 
 static int
@@ -434,6 +434,7 @@ phy_ops_t tlk110_phy_ops = {
 	.duplex = tlk110_phy_duplex,
 	.speed = tlk110_phy_speed
 };
+
 /*
   ======================================================================
   Local Functions
