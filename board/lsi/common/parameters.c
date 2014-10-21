@@ -24,8 +24,8 @@
  * MA 02111-1307 USA
  */
 
-/* #define DEBUG */
-/* #define DISPLAY_PARAMETERS */
+#define DEBUG
+#define DISPLAY_PARAMETERS
 
 #include <config.h>
 #include <common.h>
@@ -382,7 +382,7 @@ read_parameters(void)
 #endif
 
 #ifdef DISPLAY_PARAMETERS
-	printf("version=%lu flags=0x%lx\n", global->version, global->flags);
+	printf("version=%u flags=0x%x\n", global->version, global->flags);
 #endif
 
 	printf("Parameter Table Version: %lu\n", header->version);
@@ -475,13 +475,13 @@ write_parameters(void)
 		       compare, parameters);
 
 		printf("-- Offset --\n"
-		       "     global = 0x%x\n"
-		       "   pciesrio = 0x%x\n"
-		       "    voltage = 0x%x\n"
-		       "     clocks = 0x%x\n"
-		       "     sysmem = 0x%x\n"
-		       "       cmem = 0x%x\n"
-		       "  retention = 0x%x\n",
+		       "     global = 0x%p\n"
+		       "   pciesrio = 0x%p\n"
+		       "    voltage = 0x%p\n"
+		       "     clocks = 0x%p\n"
+		       "     sysmem = 0x%p\n"
+		       "       cmem = 0x%p\n"
+		       "  retention = 0x%p\n",
 		       parameters + header->globalOffset,
 		       parameters + header->pciesrioOffset,
 		       parameters + header->voltageOffset,
