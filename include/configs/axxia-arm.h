@@ -432,8 +432,8 @@ printf( "# " format "\n", ##args ); \
 } \
 } while( 0 );
 #else
-#define NCR_TRACE( format, args... )
-#define NCP_COMMENT( format, args... )
+#define NCR_TRACE( format, args... ) printf( "# " format "\n", ##args )
+#define NCP_COMMENT( format, args... ) printf( "# " format "\n", ##args )
 #endif
 #endif
 
