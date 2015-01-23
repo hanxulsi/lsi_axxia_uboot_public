@@ -27,6 +27,8 @@ static unsigned int current_speed = 0;
 static unsigned int current_bus = 0;
 static unsigned int initialized = 0;
 
+static int i2c_egem2_init(int);
+
 #define MST_STATUS_RFL (1<<13) /* RX FIFO serivce */
 #define MST_STATUS_TFL (1<<12) /* TX FIFO service */
 #define MST_STATUS_SNS (1<<11) /* Manual mode done */
@@ -476,6 +478,15 @@ i2c_set_bus_speed(unsigned int speed)
 }
 
 #ifdef CONFIG_I2C_MULTI_BUS
+static int i2c_egem2_init(int res){
+  /*Set the fan to manual mode*/
+  unsigned char control = 0xe2;
+  i2c_write(0x2e, 0x5c, 1, &control, 1);
+  i2c_write(0x2e, 0x5d, 1, &control, 1);
+  i2c_write(0x2e, 0x5e, 1, &control, 1);
+  return 0;
+}
+
 int
 i2c_set_bus_num(unsigned int bus)
 {
@@ -485,7 +496,7 @@ i2c_set_bus_num(unsigned int bus)
 
 	current_bus = bus;
 	i2c_init(CONFIG_SYS_I2C_SPEED, CONFIG_SYS_I2C_SLAVE);
-
+        if(bus == 0) i2c_egem2_init(0);
 	return 0;
 }
 

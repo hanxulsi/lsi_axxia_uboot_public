@@ -516,7 +516,6 @@ sysmem_init(void)
     }
 #endif
 
-
 	for (i = 0; i < sysmem->num_interfaces; i++) {
 #if defined ( CONFIG_AXXIA_25xx ) || defined ( CONFIG_AXXIA_55XX )
 		ncr_sysmem_init_mode_enable();
